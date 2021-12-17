@@ -1,0 +1,38 @@
+<div class="container py-5">
+    <div class="input-group mb-3">
+        <span class="input-group-text" id="basic-addon1">Avatar</span>
+        <input type="text" class="form-control" [(ngModel)]="newCard.avatar" placeholder="Avatar URL">
+    </div>
+    <div class="input-group mb-3">
+        <span class="input-group-text" id="basic-addon1">Card Name</span>
+        <input type="text" class="form-control" [(ngModel)]="newCard.cardName" placeholder="Card name">
+    </div>
+    <div class="input-group mb-3">
+        <span class="input-group-text" id="basic-addon1">Card Quote</span>
+        <input type="text" class="form-control" [(ngModel)]="newCard.cardQuote" placeholder="Card Quote">
+    </div>
+    <div class="input-group mb-3">
+        <span class="input-group-text" id="basic-addon1">Hit points (lives)</span>
+        <input type="number" class="form-control" [(ngModel)]="newCard.lives" placeholder="Hit points">
+    </div>
+    <div class="input-group mb-3">
+        <span class="input-group-text" id="basic-addon1">Attack</span>
+        <input type="number" class="form-control" [(ngModel)]="newCard.attack" placeholder="Attack">
+    </div>
+    <div class="input-group mb-3">
+        <span class="input-group-text" id="basic-addon1">Defense</span>
+        <input type="number" class="form-control" [(ngModel)]="newCard.defense" placeholder="Defense">
+    </div>
+    <div class="input-group mb-3">
+        <span class="input-group-text" id="basic-addon1">Card Type</span>
+        <select class="form-select" [(ngModel)]="newCard.cardType">
+            <option value="">Select a Card Type</option>
+            <option value="character">Character</option>
+            <option value="creature">Creature</option>
+            <option value="event">Event</option>
+        </select>
+    </div>
+    <div class="text-center">
+        <button class="btn btn-primary w-50 " (click)="onSave()">SAVE</button>
+    </div>
+</div>

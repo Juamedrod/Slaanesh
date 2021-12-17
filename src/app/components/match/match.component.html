@@ -1,0 +1,22 @@
+<board [maze]="ownMaze" (activeCard)="setEnemyActiveCard($event)"></board>
+<div class="background">
+    <hr>
+    <hr>
+</div>
+<board [maze]="ownMaze" (activeCard)="setActiveCard($event)"></board>
+<div class="container fixed-bottom text-white">
+    <div class="row">
+        <div class="col-3 offset-2">
+            <card [card]="activeCard!" *ngIf="!isActionHidden"></card>
+        </div>
+        <div class="col-2 text-center align-bottom">
+            <div class="d-flex flex-column justify-content-end bd-highlight w-100 h-100">
+                <p *ngIf="!isActionHidden">=====>>>>></p>
+                <button class="btn btn-primary" (click)="toggleHide()">{{isActionHidden? 'Unhide': 'Hide'}}</button>
+            </div>
+        </div>
+        <div class="col-3">
+            <card [card]="enemyActiveCard!" *ngIf="!isActionHidden"> </card>
+        </div>
+    </div>
+</div>

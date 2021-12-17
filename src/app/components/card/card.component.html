@@ -1,0 +1,15 @@
+<div class="card">
+    <img [src]="card.avatar" class="card-img-top">
+    <div class="card-body">
+        <h5 class="card-title">{{card.cardName}}</h5>
+        <p class="card-text text-muted">"{{card.cardQuote}}"</p>
+    </div>
+    <div class="d-flex justify-content-between px-2">
+        <p class="border p-2 border-danger rounded-2">{{card.defense}}</p>
+        <p class="text-success">HIT POINTS: {{card.lives}}</p>
+        <p class="border p-2 border-primary rounded-2">{{card.attack}}</p>
+    </div>
+    <div class="text-center">
+        <span class="text-muted">{{card.cardType}}</span>
+    </div>
+</div>
