@@ -11,6 +11,7 @@
             <button class="btn btn-success" (click)="saveMaze()">SAVE MY MAZE</button>
         </div>
         <hr>
+        <hr>
         <div class="col-2 mb-3" *ngFor="let card of myMaze; let index=index">
             <card [card]="card" (click)="toCards(card, index)"></card>
         </div>

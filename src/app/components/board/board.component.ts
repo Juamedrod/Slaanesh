@@ -9,17 +9,20 @@ import { ApiService } from 'src/app/services/api.service';
 })
 export class BoardComponent implements OnInit {
   @Output() activeCard: EventEmitter<Card>;
+  @Output() index: EventEmitter<number>;
   @Input() maze!: Card[];
 
   constructor() {
     this.activeCard = new EventEmitter();
+    this.index = new EventEmitter();
   }
 
   ngOnInit(): void {
   }
 
-  onActiveCard(card: Card) {
+  onActiveCard(card: Card, index: number) {
     this.activeCard.emit(card);
+    this.index.emit(index);
   }
 
 }

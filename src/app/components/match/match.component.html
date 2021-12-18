@@ -1,20 +1,28 @@
-<board [maze]="enemyPlayer.activeCard" (activeCard)="setEnemyActiveCard($event)"></board>
+<board [maze]="enemyPlayer.activeCards" (activeCard)="setEnemyActiveCard($event)" (index)="onEnemyIndex($event)">
+</board>
 <div class="background m-0">
     <hr>
+    <p class="text-center">LAST ACTION: {{displayedMessage}} </p>
     <hr>
 </div>
-<board [maze]="userPlayer.activeCard" (activeCard)="setActiveCard($event)"></board>
+<board [maze]="userPlayer.activeCards" (activeCard)="setActiveCard($event)" (index)="onUserIndex($event)"></board>
 <div class="container fixed-bottom text-white">
     <div class="row ">
         <div class="col-3 offset-2 ">
             <card [card]="activeCard!" *ngIf="!isActionHidden && activeCard"></card>
         </div>
         <div class="col-2 text-center align-bottom actionBoard">
-            <div class="d-flex flex-column justify-content-end bd-highlight w-100 h-100">
+            <div class="d-flex flex-column justify-content-end bd-highlight w-100 h-100" *ngIf="matchState==1">
                 <p *ngIf="!isActionHidden">=====>>>>> State: {{matchState}}</p>
                 <button class="btn btn-primary my-3" (click)="toggleHide()">{{isActionHidden? 'Unhide':
                     'Hide'}}</button>
                 <button class="btn btn-primary" (click)="executeAction()">EXECUTE ACTION!</button>
+            </div>
+            <div class="d-flex flex-column justify-content-end bd-highlight w-100 h-100" *ngIf="matchState==2">
+                <p>Enemy TURN</p>
+                <!-- TODO poner estilos y mejorar la interfaz, tmb hay que poner reglas para el mazo(minimo de 15 cartas elegidas) -->
+                <button class="btn btn-primary my-3" (click)="toggleHide()">{{isActionHidden? 'Unhide':
+                    'Hide'}}</button>
             </div>
         </div>
         <div class="col-3 ">
