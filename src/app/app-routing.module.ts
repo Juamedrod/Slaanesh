@@ -16,7 +16,7 @@ const routes: Routes = [
   { path: 'new', component: GenerateCardComponent, canActivate: [LoggedGuard] },
   { path: 'maze', component: MazeComponent, canActivate: [LoggedGuard] },
   { path: 'waiting', component: WaitingRoomComponent, canActivate: [LoggedGuard] },
-  { path: 'match', component: MatchComponent, canActivate: [LoggedGuard] },
+  { path: 'match/:matchId', component: MatchComponent, canActivate: [LoggedGuard] },
   { path: 'registerlogin', component: RegisterLoginComponent },
   { path: '**', redirectTo: '' },
 

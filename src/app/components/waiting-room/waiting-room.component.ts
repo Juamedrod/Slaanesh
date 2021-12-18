@@ -26,10 +26,14 @@ export class WaitingRoomComponent implements OnInit {
 
   scanForMatch() {
     this.interval = setInterval(async () => {
-      const response = await this.managerService.searchMatch(this.userId);
-      //TODO Aquí recibo el id del match para pasarlo y hacer la logica de la batalla!
+      const response: any = await this.managerService.searchMatch(this.userId);
       if (response) {
-        this.router.navigate(['/match']);
+        if (response.player1.userId == this.userId) {
+          this.managerService.setEnemyId(response.player2.userId);
+        } else {
+          this.managerService.setEnemyId(response.player1.userId);
+        }
+        this.router.navigate(['/match', response._id]);
       }
     }, 3000);
   }
@@ -37,7 +41,7 @@ export class WaitingRoomComponent implements OnInit {
   async launchGame() {
     try {
       const response = await this.managerService.createMatch(this.userId, this.matchId);
-      this.router.navigate(['/match']);
+
     } catch (error) {
       console.log(error);
     }

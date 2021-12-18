@@ -9,6 +9,7 @@ import { Action } from '../interfaces/action.interface';
 })
 export class ManagerService {
   user: any;
+  enemyId: string = '';
   baseURL: string;
   login$: Subject<boolean>
   constructor(private http: HttpClient) {
@@ -25,6 +26,14 @@ export class ManagerService {
 
   createMatch(player1Id: string, player2Id: string) {
     return this.http.post(this.baseURL + '/api/match/new', { player1Id, player2Id }).toPromise();
+  }
+
+  updateMatch(match: any) {
+    return this.http.put(this.baseURL + '/api/match', match).toPromise();
+  }
+
+  getMatchById(id: string) {
+    return this.http.get(this.baseURL + '/api/match/?id=' + id).toPromise();
   }
 
   searchMatch(id: string) {
@@ -55,4 +64,11 @@ export class ManagerService {
     return this.user;
   }
 
+  setEnemyId(enemyId: string) {
+    this.enemyId = enemyId;
+  }
+
+  getEnemyId() {
+    return this.enemyId;
+  }
 }

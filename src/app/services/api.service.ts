@@ -17,7 +17,7 @@ export class ApiService {
     return this.http.post(this.baseURL + '/api/maze', maze).toPromise();
   }
 
-  getMaze(id: number): Promise<any> {
+  getMaze(id: string): Promise<any> {
     return this.http.get(this.baseURL + '/api/maze/' + id).toPromise();
   }
 

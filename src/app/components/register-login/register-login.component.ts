@@ -36,8 +36,7 @@ export class RegisterLoginComponent implements OnInit {
     if (user.error) return '';
     this.managerService.setUser(user);
     this.managerService.logged(true);
-    console.log(user);
-    this.router.navigate(['/new']);
+    this.router.navigate(['/maze']);
     return '';
   }
 

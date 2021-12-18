@@ -6,4 +6,5 @@ export interface Card {
     defense: number;
     attack: number;
     lives: number;
+    _id?: string;
 }
