@@ -1,1 +1,18 @@
-<p>maze works!</p>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-2 mb-3" *ngFor="let card of cards; let index=index">
+            <card [card]="card" (click)="toMaze(card, index)"></card>
+        </div>
+    </div>
+    <hr>
+    <hr>
+    <div class="row">
+        <div class="text-center mb-2">
+            <button class="btn btn-success" (click)="saveMaze()">SAVE MY MAZE</button>
+        </div>
+        <hr>
+        <div class="col-2 mb-3" *ngFor="let card of myMaze; let index=index">
+            <card [card]="card" (click)="toCards(card, index)"></card>
+        </div>
+    </div>
+</div>

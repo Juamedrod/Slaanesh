@@ -13,6 +13,14 @@ export class ApiService {
     this.baseURL = environment.baseURL;
   }
 
+  newMaze(maze: any) {
+    return this.http.post(this.baseURL + '/api/maze', maze).toPromise();
+  }
+
+  getMaze(id: number): Promise<any> {
+    return this.http.get(this.baseURL + '/api/maze/' + id).toPromise();
+  }
+
   getAllCards(): Promise<Card[]> {
     return this.http.get<Card[]>(this.baseURL + '/api/card').toPromise();
   }

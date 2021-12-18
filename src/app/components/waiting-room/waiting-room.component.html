@@ -1,0 +1,19 @@
+<div class="container">
+    <div class="row">
+
+    </div>
+    <div class="row"></div>
+    <div class="row p-3">
+        <div class="input-group mb-3">
+            <span class="input-group-text" id="basic-addon1">Enter your Friend Match ID</span>
+            <input type="text" class="form-control" [(ngModel)]="matchId" placeholder="Name">
+        </div>
+        <div class="d-flex align-items-center justify-content-start my-2">
+            <button class="btn btn-primary me-2" (click)="showMyId()">SHOW MY ID</button>
+            <p class="m-0">MY MATCH ID: <span class="text-primary">{{userId}}</span> </p>
+        </div>
+        <div class="text-center">
+            <button class="btn btn-primary" (click)="launchGame()">LAUNCH MATCH</button>
+        </div>
+    </div>
+</div>

@@ -1,11 +1,58 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Card } from '../interfaces/card.interface';
+import { Subject } from 'rxjs';
+import { environment } from 'src/environments/environment';
+import { Action } from '../interfaces/action.interface';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ManagerService {
-  maze: Card[] = [];
+  user: any;
+  baseURL: string;
+  login$: Subject<boolean>
+  constructor(private http: HttpClient) {
+    this.baseURL = environment.baseURL;
+    this.user = {
+      id: ''
+    }
+    this.login$ = new Subject();
+  }
 
-  constructor() { }
+  executeAction(action: Action) {
+
+  }
+
+  createMatch(player1Id: string, player2Id: string) {
+    return this.http.post(this.baseURL + '/api/match/new', { player1Id, player2Id }).toPromise();
+  }
+
+  searchMatch(id: string) {
+    return this.http.get(this.baseURL + '/api/match/' + id).toPromise();
+  }
+
+  createUser(user: any) {
+    return this.http.post(this.baseURL + '/api/users/register', user).toPromise();
+  }
+
+  login(user: any) {
+    return this.http.post(this.baseURL + '/api/users/login', { email: user.email, password: user.password }).toPromise();
+  }
+
+  loginSuscribe() {
+    return this.login$.asObservable();
+  }
+
+  logged(logged: boolean) {
+    this.login$.next(logged);
+  }
+
+  setUser(user: any) {
+    this.user = user;
+  }
+
+  getUser() {
+    return this.user;
+  }
+
 }

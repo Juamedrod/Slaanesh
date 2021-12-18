@@ -31,8 +31,12 @@ export class MatchComponent implements OnInit {
     this.activeCard = card;
   }
 
-  toggleHide(){
-    this.isActionHidden=!this.isActionHidden;
+  toggleHide() {
+    this.isActionHidden = !this.isActionHidden;
+  }
+
+  executeAction() {
+
   }
 
 }

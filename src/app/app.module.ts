@@ -11,6 +11,8 @@ import { HeaderComponent } from './components/header/header.component';
 import { GenerateCardComponent } from './components/generate-card/generate-card.component';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { WaitingRoomComponent } from './components/waiting-room/waiting-room.component';
+import { RegisterLoginComponent } from './components/register-login/register-login.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +22,9 @@ import { HttpClientModule } from '@angular/common/http';
     CardComponent,
     MatchComponent,
     HeaderComponent,
-    GenerateCardComponent
+    GenerateCardComponent,
+    WaitingRoomComponent,
+    RegisterLoginComponent
   ],
   imports: [
     BrowserModule,

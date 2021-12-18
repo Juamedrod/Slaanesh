@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ManagerService } from 'src/app/services/manager.service';
 
 @Component({
   selector: 'app-header',
@@ -7,9 +8,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor() { }
+  logged: boolean = false;
 
-  ngOnInit(): void {
+  constructor(private managerService: ManagerService) { }
+
+  ngOnInit() {
+    this.managerService.loginSuscribe().subscribe((logged) => {
+      this.logged = logged;
+    });
   }
+
 
 }
