@@ -1,8 +1,9 @@
-<board [maze]="enemyPlayer.activeCards" (activeCard)="setEnemyActiveCard($event)" (index)="onEnemyIndex($event)">
+<board class="enemyBackground" [maze]="enemyPlayer.activeCards" (activeCard)="setEnemyActiveCard($event) "
+    (index)="onEnemyIndex($event)">
 </board>
-<div class="background m-0">
+<div class="background m-0 fire">
     <hr>
-    <p class="text-center">LAST ACTION: {{displayedMessage}} </p>
+    <p class="text-center text-white">LAST ACTION: {{displayedMessage}} </p>
     <hr>
 </div>
 <board [maze]="userPlayer.activeCards" (activeCard)="setActiveCard($event)" (index)="onUserIndex($event)"></board>

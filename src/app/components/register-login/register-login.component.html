@@ -1,7 +1,7 @@
-<div class="container">
-    <div class="row">
-        <div class="col-6 border border-success ">
-            <h2 class="text-center">REGISTER</h2>
+<div class="container mt-3">
+    <div class="row ">
+        <div class=" offset-3 col-6 " *ngIf="!centinel">
+            <h2 class="text-center text-white">REGISTER</h2>
             <div class="input-group mb-3">
                 <span class="input-group-text" id="basic-addon1">Name</span>
                 <input type="text" class="form-control" [(ngModel)]="newUser.name" placeholder="Name">
@@ -14,11 +14,14 @@
                 <span class="input-group-text" id="basic-addon1">Password</span>
                 <input type="password" class="form-control" [(ngModel)]="newUser.password" placeholder="password">
             </div>
-            <div class="input-group mb-3">
-                <button class="btn btn-primary" (click)="register()">REGISTER</button>
+            <div class="input-group mb-3 text-center">
+                <button class="btn btn-primary text-center" (click)="register()">REGISTER</button>
+            </div>
+            <div class="text-center text-white">
+                <a (click)="toggle()">Go to LOGIN</a>
             </div>
         </div>
-        <div class="col-6 border border-success">
+        <div class="offset-3 col-6 " *ngIf="centinel">
             <h2 class="text-center">LOGIN</h2>
             <div class="input-group mb-3">
                 <span class="input-group-text" id="basic-addon1">email</span>
@@ -28,8 +31,11 @@
                 <span class="input-group-text" id="basic-addon1">Password</span>
                 <input type="password" class="form-control" [(ngModel)]="loginPass" placeholder="password">
             </div>
-            <div class="input-group mb-3">
-                <button class="btn btn-primary" (click)="login()">LOGIN</button>
+            <div class="input-group text-center ">
+                <button class="btn btn-primary mb-3 " (click)="login()">LOGIN</button>
+            </div>
+            <div class="text-center text-white">
+                <a (click)="toggle()">Go to Register</a>
             </div>
         </div>
     </div>

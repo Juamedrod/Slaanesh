@@ -12,6 +12,7 @@ export class RegisterLoginComponent implements OnInit {
   newUser: any;
   loginMail: any;
   loginPass: any;
+  centinel: boolean = false;
 
   constructor(private managerService: ManagerService, private router: Router) {
     this.newUser = {
@@ -38,6 +39,10 @@ export class RegisterLoginComponent implements OnInit {
     this.managerService.logged(true);
     this.router.navigate(['/maze']);
     return '';
+  }
+
+  toggle() {
+    this.centinel = !this.centinel;
   }
 
 }

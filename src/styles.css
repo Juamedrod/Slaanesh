@@ -1,1 +1,33 @@
 /* You can add global styles to this file, and also import other style files */
+@import url(https://fonts.googleapis.com/css?family=MuseoModerno:100,200,300,regular,500,600,700,800,900);
+@import url(https://fonts.googleapis.com/css?family=Moo+Lah+Lah:regular);
+
+:root{
+    --color1:#c0c5ce;
+    --color2: #a7adba;
+    --color3: #65737e;
+    --color4: #4f5b66;
+    --color5: #343d46;
+    --acento1:indigo;
+    --acento2: rgb(47, 134, 55);
+    --creature:rgb(151, 16, 16);
+    --character:rgb(4, 47, 189);
+    --AttackEvent:rgb(72, 8, 78);
+    --DefenseEvent:  rgb(214, 112, 29);
+}
+
+body{
+    background-color: rgb(77, 75, 75) !important;
+    background-image: url('assets/images/fantasy3.jpg');
+    background-blend-mode: multiply;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+div{
+    font-family: 'MuseoModerno', cursive;
+}
+
+a{
+    font-weight: 300;
+}

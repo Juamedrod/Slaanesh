@@ -1,13 +1,14 @@
-<div class="card">
+<div class="card"
+    [ngClass]="{'creature':card.cardType=='creature', 'character': card.cardType=='character', 'AttackEvent': card.cardType=='Attack Event', 'DefenseEvent': card.cardType=='Defense Event'}">
     <img [src]="card.avatar" class="card-img-top">
     <div class="card-body">
         <h5 class="card-title">{{card.cardName}}</h5>
         <p class="card-text text-muted">"{{card.cardQuote}}"</p>
     </div>
     <div class="d-flex justify-content-between px-2">
-        <p class="border p-2 border-danger rounded-2">{{card.defense}}</p>
-        <p class="text-success">HIT POINTS: {{card.lives}}</p>
-        <p class="border p-2 border-primary rounded-2">{{card.attack}}</p>
+        <p class=" ps-3 fs-2 defenseText">{{card.defense}}</p>
+        <p class="hitpointstext">HIT POINTS: {{card.lives}}</p>
+        <p class=" pe-3 fs-2 attackText">{{card.attack}}</p>
     </div>
     <div class="text-center">
         <span class="text-muted">{{card.cardType}}</span>

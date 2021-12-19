@@ -1,0 +1,8 @@
+nav{
+    background-color: var(--color5) !important;
+    border-bottom: 2px solid var(--acento2);    
+}
+
+.title{
+    font-weight: 600;    
+}

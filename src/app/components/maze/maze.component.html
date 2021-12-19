@@ -1,17 +1,17 @@
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-2 mb-3" *ngFor="let card of cards; let index=index">
+<div class="container-fluid p-5">
+    <div class="d-flex overflow-auto " id="style-13">
+        <div class="col-2 mb-3 me-3" *ngFor="let card of cards; let index=index">
             <card [card]="card" (click)="toMaze(card, index)"></card>
         </div>
     </div>
-    <hr>
-    <hr>
+    <hr class="text-white">
+    <hr class="text-white">
     <div class="row">
         <div class="text-center mb-2">
             <button class="btn btn-success" (click)="saveMaze()">SAVE MY MAZE</button>
         </div>
-        <hr>
-        <hr>
+        <hr class="text-white">
+        <hr class="text-white">
         <div class="col-2 mb-3" *ngFor="let card of myMaze; let index=index">
             <card [card]="card" (click)="toCards(card, index)"></card>
         </div>

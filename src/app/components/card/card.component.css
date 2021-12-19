@@ -1,5 +1,40 @@
-.card{
-    border: 3px solid rgb(23, 148, 23);
+.card{    
     background-color: rgb(189, 189, 189);
     cursor: pointer;
+    min-height: 500px;
+}
+
+.creature{
+    border: 3px solid var(--creature);
+    box-shadow: 0px 0px 8px var(--creature), 0px 0px 10px black;
+}
+
+.character{
+    border: 3px solid var(--character);
+    box-shadow: 0px 0px 8px var(--character), 0px 0px 10px black;
+}
+
+.AttackEvent{
+    border: 3px solid var(--AttackEvent);
+    box-shadow: 0px 0px 8px var(--AttackEvent), 0px 0px 10px black;
+}
+
+.DefenseEvent{
+    border: 3px solid var(--DefenseEvent);
+    box-shadow: 0px 0px 8px var(--DefenseEvent), 0px 0px 10px black;
+}
+
+.attackText{
+    color: green;
+    text-shadow: 0px 0px 3px black;
+}
+
+.defenseText{
+    color: red;
+    text-shadow: 0px 0px 3px black;
+}
+
+.hitpointstext{
+    color: tomato;
+    text-shadow: 0px 0px 1px black;
 }

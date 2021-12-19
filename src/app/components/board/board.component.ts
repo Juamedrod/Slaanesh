@@ -12,6 +12,7 @@ export class BoardComponent implements OnInit {
   @Output() index: EventEmitter<number>;
   @Input() maze!: Card[];
 
+
   constructor() {
     this.activeCard = new EventEmitter();
     this.index = new EventEmitter();
