@@ -1,13 +1,15 @@
-<board class="enemyBackground" [maze]="enemyPlayer.activeCards" (activeCard)="setEnemyActiveCard($event) "
-    (index)="onEnemyIndex($event)">
-</board>
-<div class="background m-0 fire">
-    <hr>
-    <p class="text-center text-white fs-2 messageAction w-100">LAST ACTION: {{displayedMessage}} </p>
-    <hr>
+<div class="mt-2">
+    <board class="enemyBackground " [maze]="enemyPlayer.activeCards" (activeCard)="setEnemyActiveCard($event) "
+        (index)="onEnemyIndex($event)">
+    </board>
+    <div class="background m-0 fire">
+        <hr>
+        <p class="text-center text-white fs-2 messageAction w-100">LAST ACTION: {{displayedMessage}} </p>
+        <hr>
+    </div>
+    <board [maze]="userPlayer.activeCards" (activeCard)="setActiveCard($event)" (index)="onUserIndex($event)">
+    </board>
 </div>
-<board [maze]="userPlayer.activeCards" (activeCard)="setActiveCard($event)" (index)="onUserIndex($event)">
-</board>
 <div class="container fixed-bottom text-white">
     <div class="row ">
         <div class="col-3 offset-2 ">

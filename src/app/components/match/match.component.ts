@@ -77,82 +77,89 @@ export class MatchComponent implements OnInit {
       this.activeCard = undefined;
       this.enemyActiveCard = undefined;
       this.socket.emit('ActionPerformed', { matchId: this.matchId, round: this.round, message: this.message });
-    } catch (error) {
-      console.log(error);
+    } catch (error: any) {
+      console.log(error.message);
     }
   }
 
   performAction() {
-    /**
-     * You can sacrifice one of your card to discard an enemy event card, both cards die
-     */
-    if (this.enemyActiveCard?.cardType == 'Attack Event' || this.enemyActiveCard?.cardType == 'Defense Event') {
-      this.eraseCard();
-      this.eraseMyCard();
-      this.message = `${this.activeCard?.cardName} sacrificed itself to destroy ${this.enemyActiveCard.cardName}`;
-      this.shiftCards();
-      return
+    try {
+      /** You can sacrifice one of your card to discard an enemy event card, both cards die */
+      if (this.enemyActiveCard?.cardType == 'Attack Event' || this.enemyActiveCard?.cardType == 'Defense Event') {
+        this.eraseCardFromEnemyMaze(this.enemyPlayer.activeCards[this.activeCardEnemyIndex]._id);
+        this.eraseEventCard(this.activeCardEnemyIndex);
+        this.eraseCardFromMyMaze(this.userPlayer.activeCards[this.activeCardIndex]._id)
+        this.eraseMyActiveCard(this.activeCardIndex);
+        this.message = `${this.activeCard?.cardName} sacrificed itself to destroy ${this.enemyActiveCard.cardName}`;
+        this.shiftCards();
+        return
+      }
+    } catch (error) {
+      console.log(error);
     }
 
-    switch (this.activeCard?.cardType) {
-      case 'Attack Event':
-        for (let card of this.enemyPlayer.activeCards) {
-          if (card.cardType == 'Attack Event' || card.cardType == 'Defense Event') continue;
-          card.defense -= this.activeCard.defense;
-          card.lives -= this.activeCard.attack;
-        }
-        this.activeCard.lives = 0;
-        this.eraseCard();
-        this.eraseMyCard();
-        this.message = `${this.activeCard?.cardName} invoked its power vs the enemy team`;
-        break;
-
-      case 'Defense Event':
-        for (let card of this.userPlayer.activeCards) {
-          if (card._id == this.activeCard._id) continue;
-          card.attack += this.activeCard.attack;
-          card.defense += this.activeCard.defense;
-          card.lives += this.activeCard.lives;
-        }
-        this.activeCard.lives = 0;
-        this.eraseMyCard();
-        this.message = `${this.activeCard?.cardName} invoked its power to boost its Allies, surge of Power!`;
-        break;
-
-      case 'character'://cartas character reciben un punto menos de daño que otras criaturas pero siempre reciben al menos 1 al ser atacados
-        let dmg = (this.activeCard.attack - this.enemyActiveCard?.defense!);
-        if (this.enemyActiveCard?.cardType == 'character') {
-          dmg--;
-          (dmg <= 0) ? (this.enemyActiveCard!.lives -= 1) : (this.enemyActiveCard!.lives -= dmg);
-        } else {
-          (dmg <= 0) ? 0 : (this.enemyActiveCard!.lives -= dmg);
-        }
-        if (this.enemyActiveCard!.lives <= 0) {
+    try {
+      switch (this.activeCard?.cardType) {
+        case 'Attack Event':
+          for (let card of this.enemyPlayer.activeCards) {
+            if (card.cardType == 'Attack Event' || card.cardType == 'Defense Event') continue;
+            card.defense -= this.activeCard.defense;
+            card.lives -= this.activeCard.attack;
+          }
+          this.activeCard.lives = 0;
           this.eraseCard();
-        }
-        this.message = `${this.activeCard?.cardName} attacked ${this.enemyActiveCard!.cardName} inflicting ${dmg < 0 ? '0' : dmg} damage and ${(this.enemyActiveCard!.lives <= 0) ? 'DIED' : 'SURVIVED'}`;
-        break;
+          this.eraseMyCard();
+          this.message = `${this.activeCard?.cardName} invoked its power vs the enemy team`;
+          break;
 
-      case 'creature'://pueden evitar el daño si tienen mas defensa o igual que el ataque del enemigo
-        let dmg2 = (this.activeCard.attack - this.enemyActiveCard?.defense!);
-        if (this.enemyActiveCard?.cardType == 'creature') {
-          (dmg2 <= 0) ? 0 : (this.enemyActiveCard!.lives -= dmg2);
-        } else {
-          dmg2--;
-          (dmg2 <= 0) ? this.enemyActiveCard!.lives -= 1 : (this.enemyActiveCard!.lives -= dmg2);
-        }
+        case 'Defense Event':
+          for (let card of this.userPlayer.activeCards) {
+            if (card._id == this.activeCard._id) continue;
+            card.attack += this.activeCard.attack;
+            card.defense += this.activeCard.defense;
+            card.lives += this.activeCard.lives;
+          }
+          this.activeCard.lives = 0;
+          this.eraseMyCard();
+          this.message = `${this.activeCard?.cardName} invoked its power to boost its Allies, surge of Power!`;
+          break;
 
-        if (this.enemyActiveCard!.lives <= 0) this.eraseCard();
+        case 'character'://cartas character reciben un punto menos de daño que otras criaturas pero siempre reciben al menos 1 al ser atacados
+          let dmg = (this.activeCard.attack - this.enemyActiveCard?.defense!);
+          if (this.enemyActiveCard?.cardType == 'character') {
+            dmg--;
+            (dmg <= 0) ? (this.enemyActiveCard!.lives -= 1) : (this.enemyActiveCard!.lives -= dmg);
+          } else {
+            (dmg <= 0) ? 0 : (this.enemyActiveCard!.lives -= dmg);
+          }
+          if (this.enemyActiveCard!.lives <= 0) {
+            this.eraseCard();
+          }
+          this.message = `${this.activeCard?.cardName} attacked ${this.enemyActiveCard!.cardName} inflicting ${dmg < 0 ? '0' : dmg} damage and ${(this.enemyActiveCard!.lives <= 0) ? 'DIED' : 'SURVIVED'}`;
+          break;
 
-        this.message = `${this.activeCard?.cardName} attacked ${this.enemyActiveCard!.cardName} inflicting ${dmg2 < 0 ? '0' : dmg2} damage and ${(this.enemyActiveCard!.lives <= 0) ? 'DIED' : 'SURVIVED'}`;
-        break;
+        case 'creature'://pueden evitar el daño si tienen mas defensa o igual que el ataque del enemigo
+          let dmg2 = (this.activeCard.attack - this.enemyActiveCard?.defense!);
+          if (this.enemyActiveCard?.cardType == 'creature') {
+            (dmg2 <= 0) ? 0 : (this.enemyActiveCard!.lives -= dmg2);
+          } else {
+            dmg2--;
+            (dmg2 <= 0) ? this.enemyActiveCard!.lives -= 1 : (this.enemyActiveCard!.lives -= dmg2);
+          }
 
-      default:
-        break;
+          if (this.enemyActiveCard!.lives <= 0) this.eraseCard();
+
+          this.message = `${this.activeCard?.cardName} attacked ${this.enemyActiveCard!.cardName} inflicting ${dmg2 < 0 ? '0' : dmg2} damage and ${(this.enemyActiveCard!.lives <= 0) ? 'DIED' : 'SURVIVED'}`;
+          break;
+
+        default:
+          break;
+      }
+      this.shiftCards();
+
+    } catch (error) {
+      console.log(error);
     }
-
-    this.shiftCards();
-
   }
 
   /**
@@ -169,6 +176,22 @@ export class MatchComponent implements OnInit {
       this.userPlayer.activeCards.push(this.userPlayer.maze[randomNum]);
       this.userPlayer.maze.splice(randomNum, 1);
     }
+  }
+
+  eraseEventCard(index: number) {
+    this.enemyPlayer.activeCards.splice(index, 1);
+  }
+
+  eraseMyActiveCard(index: number) {
+    this.userPlayer.activeCards.splice(index, 1);
+  }
+
+  eraseCardFromMyMaze(cardId: string) {
+    this.userPlayer.maze.splice(this.userPlayer.maze.findIndex((element: Card) => element._id == cardId), 1);
+  }
+
+  eraseCardFromEnemyMaze(cardId: string) {
+    this.enemyPlayer.maze.splice(this.enemyPlayer.maze.findIndex((element: Card) => element._id == cardId), 1);
   }
 
   eraseCard() {
