@@ -29,7 +29,7 @@ export class RegisterLoginComponent implements OnInit {
     const user = await this.managerService.createUser(this.newUser);
     this.managerService.setUser(user);
     this.managerService.logged(true);
-    this.router.navigate(['/new']);
+    this.router.navigate(['/maze']);
   }
 
   async login() {

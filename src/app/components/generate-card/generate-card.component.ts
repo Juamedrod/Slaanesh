@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Card } from 'src/app/interfaces/card.interface';
 import { ApiService } from 'src/app/services/api.service';
 
@@ -8,9 +9,15 @@ import { ApiService } from 'src/app/services/api.service';
   styleUrls: ['./generate-card.component.css']
 })
 export class GenerateCardComponent implements OnInit {
-  newCard: Card;
 
-  constructor(private apiService: ApiService) {
+  newCard!: Card;
+  cardId?: string = 'empty';
+
+  constructor(private apiService: ApiService, private activatedRoute: ActivatedRoute) {
+    this.activatedRoute.params.subscribe(value => {
+      this.cardId = value.cardId;
+    });
+
     this.newCard = {
       avatar: '',
       cardName: '',
@@ -19,17 +26,33 @@ export class GenerateCardComponent implements OnInit {
       defense: 0,
       attack: 0,
       lives: 0,
+      rarity: ''
     }
   }
 
-  ngOnInit(): void {
+  async ngOnInit() {
+    if (this.cardId != '') {
+      try {
+        const response = await this.apiService.getCardById(this.cardId!);
+        this.newCard = response;
+      } catch (error) {
+        console.log(error);
+      }
+    }
   }
 
   async onSave() {
     try {
-      console.log(this.newCard);
-
       const response = await this.apiService.newCard(this.newCard);
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async onEdit() {
+    try {
+      const response = await this.apiService.updateCardById(this.cardId!, this.newCard);
       console.log(response);
     } catch (error) {
       console.log(error);

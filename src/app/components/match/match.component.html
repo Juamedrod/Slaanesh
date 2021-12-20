@@ -3,24 +3,56 @@
 </board>
 <div class="background m-0 fire">
     <hr>
-    <p class="text-center text-white">LAST ACTION: {{displayedMessage}} </p>
+    <p class="text-center text-white fs-2 messageAction w-100">LAST ACTION: {{displayedMessage}} </p>
     <hr>
 </div>
-<board [maze]="userPlayer.activeCards" (activeCard)="setActiveCard($event)" (index)="onUserIndex($event)"></board>
+<board [maze]="userPlayer.activeCards" (activeCard)="setActiveCard($event)" (index)="onUserIndex($event)">
+</board>
 <div class="container fixed-bottom text-white">
     <div class="row ">
         <div class="col-3 offset-2 ">
             <card [card]="activeCard!" *ngIf="!isActionHidden && activeCard"></card>
         </div>
-        <div class="col-2 text-center align-bottom actionBoard">
+        <div class="col-2 text-center align-bottom " [ngClass]="{'myturn':matchState==1, 'enemyturn':matchState==2}">
             <div class="d-flex flex-column justify-content-end bd-highlight w-100 h-100" *ngIf="matchState==1">
-                <p *ngIf="!isActionHidden">=====>>>>> State: {{matchState}}</p>
+                <div class="wrapper">
+                    <div class="marquee text-danger">
+                        <p *ngIf="!isActionHidden " class="shadowedText">=====>>>>></p>
+                        <p *ngIf="!isActionHidden " class="shadowedText">=====>>>>></p>
+                        <p *ngIf="!isActionHidden " class="shadowedText">=====>>>>></p>
+                    </div>
+                    <div class="marquee text-danger">
+                        <p *ngIf="!isActionHidden " class="shadowedText">=====>>>>></p>
+                        <p *ngIf="!isActionHidden " class="shadowedText">=====>>>>></p>
+                        <p *ngIf="!isActionHidden " class="shadowedText">=====>>>>></p>
+                    </div>
+                    <div class="marquee text-danger">
+                        <p *ngIf="!isActionHidden " class="shadowedText">=====>>>>></p>
+                        <p *ngIf="!isActionHidden " class="shadowedText">=====>>>>></p>
+                        <p *ngIf="!isActionHidden " class="shadowedText">=====>>>>></p>
+                    </div>
+                    <div class="marquee text-danger">
+                        <p *ngIf="!isActionHidden " class="shadowedText">=====>>>>></p>
+                        <p *ngIf="!isActionHidden " class="shadowedText">=====>>>>></p>
+                        <p *ngIf="!isActionHidden " class="shadowedText">=====>>>>></p>
+                    </div>
+                    <div class="marquee text-danger">
+                        <p *ngIf="!isActionHidden " class="shadowedText">=====>>>>></p>
+                        <p *ngIf="!isActionHidden " class="shadowedText">=====>>>>></p>
+                        <p *ngIf="!isActionHidden " class="shadowedText">=====>>>>></p>
+                    </div>
+                </div>
+                <p class="text-center text-white fs-2 messageAction" *ngIf="!isActionHidden ">YOUR TURN</p>
+
+                <button class="btn btn-primary" *ngIf="!isActionHidden " (click)="executeAction()">EXECUTE
+                    ACTION!</button>
+
                 <button class="btn btn-primary my-3" (click)="toggleHide()">{{isActionHidden? 'Unhide':
                     'Hide'}}</button>
-                <button class="btn btn-primary" (click)="executeAction()">EXECUTE ACTION!</button>
+
             </div>
             <div class="d-flex flex-column justify-content-end bd-highlight w-100 h-100" *ngIf="matchState==2">
-                <p>Enemy TURN</p>
+                <p class="fs-2 messageAction" *ngIf="!isActionHidden ">Enemy TURN</p>
                 <!-- TODO poner estilos y mejorar la interfaz, tmb hay que poner reglas para el mazo(minimo de 15 cartas elegidas) -->
                 <button class="btn btn-primary my-3" (click)="toggleHide()">{{isActionHidden? 'Unhide':
                     'Hide'}}</button>

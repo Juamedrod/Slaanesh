@@ -1,5 +1,9 @@
-.actionBoard{
-    background-color: rgba(71, 49, 49, 0.863);
+.myturn{
+    background-color: rgba(76, 0, 130, 0.842);
+}
+
+.enemyturn{
+    background-color: rgba(156, 19, 42, 0.89);
 }
 
 .fire{   
@@ -8,3 +12,42 @@
     background-size: cover;
     background-repeat: no-repeat;
 }
+
+.messageAction{
+    text-shadow: 0px 0px 15px orangered;
+}
+
+.shadowedText{
+    text-shadow: 0px 0px 8px white !important;
+}
+
+
+/*
+*INFINITE HORIZONTAL SCROLL
+*/
+.wrapper {
+    max-width: 100%;
+    overflow: hidden;
+  }
+  
+  .marquee {
+    white-space: nowrap;
+    overflow: hidden;
+    display: inline-block;
+    animation: marquee 3s linear infinite;
+  }
+  
+  .marquee p {
+    
+    display: inline-block;
+  }
+  
+  @keyframes marquee {
+    0% {
+        transform: translate3d(-50%, 0, 0);
+    }
+    100% {
+      
+      transform: translate3d(0, 0, 0);
+    }
+  }

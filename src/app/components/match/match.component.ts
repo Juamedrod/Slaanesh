@@ -3,7 +3,7 @@ import { Card } from 'src/app/interfaces/card.interface';
 import { ApiService } from 'src/app/services/api.service';
 import { io } from "socket.io-client";
 import { environment } from 'src/environments/environment';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ManagerService } from 'src/app/services/manager.service';
 
 @Component({
@@ -36,7 +36,7 @@ export class MatchComponent implements OnInit {
   activeCardIndex: number = 0;
   activeCardEnemyIndex: number = 0;
 
-  constructor(private apiService: ApiService, private activatedRoute: ActivatedRoute, private managerService: ManagerService) {
+  constructor(private apiService: ApiService, private activatedRoute: ActivatedRoute, private router: Router, private managerService: ManagerService) {
     this.socket = io(environment.baseURL);
     this.activatedRoute.params.subscribe(value => {
       this.matchId = value.matchId;
@@ -90,29 +90,33 @@ export class MatchComponent implements OnInit {
       this.eraseCard();
       this.eraseMyCard();
       this.message = `${this.activeCard?.cardName} sacrificed itself to destroy ${this.enemyActiveCard.cardName}`;
+      this.shiftCards();
       return
     }
 
     switch (this.activeCard?.cardType) {
       case 'Attack Event':
-        for (let card of this.enemyPlayer.activeCard) {
-          card.attack -= this.activeCard.attack;
+        for (let card of this.enemyPlayer.activeCards) {
+          if (card.cardType == 'Attack Event' || card.cardType == 'Defense Event') continue;
           card.defense -= this.activeCard.defense;
-          card.lives -= this.activeCard.lives;
-          if (card!.lives <= 0) {
-            this.eraseCard();
-          }
+          card.lives -= this.activeCard.attack;
         }
+        this.activeCard.lives = 0;
+        this.eraseCard();
+        this.eraseMyCard();
         this.message = `${this.activeCard?.cardName} invoked its power vs the enemy team`;
         break;
 
       case 'Defense Event':
-        for (let card of this.userPlayer.activeCard) {
+        for (let card of this.userPlayer.activeCards) {
+          if (card._id == this.activeCard._id) continue;
           card.attack += this.activeCard.attack;
           card.defense += this.activeCard.defense;
           card.lives += this.activeCard.lives;
         }
-        this.message = `${this.activeCard?.cardName} invoked its power to empower its team`;
+        this.activeCard.lives = 0;
+        this.eraseMyCard();
+        this.message = `${this.activeCard?.cardName} invoked its power to boost its Allies, surge of Power!`;
         break;
 
       case 'character'://cartas character reciben un punto menos de daño que otras criaturas pero siempre reciben al menos 1 al ser atacados
@@ -146,22 +150,35 @@ export class MatchComponent implements OnInit {
       default:
         break;
     }
-    /**
+
+    this.shiftCards();
+
+  }
+
+  /**
        * shift cards and get a new one to complete active desk of 6
        */
+  shiftCards() {
     while (this.enemyPlayer.activeCards.length < 6 && this.enemyPlayer.maze.length > 0) {
       const randomNum = Math.trunc(Math.random() * this.enemyPlayer.maze.length);
       this.enemyPlayer.activeCards.push(this.enemyPlayer.maze[randomNum]);
       this.enemyPlayer.maze.splice(randomNum, 1);
     }
+    while (this.userPlayer.activeCards.length < 6 && this.userPlayer.maze.length > 0) {
+      const randomNum = Math.trunc(Math.random() * this.userPlayer.maze.length);
+      this.userPlayer.activeCards.push(this.userPlayer.maze[randomNum]);
+      this.userPlayer.maze.splice(randomNum, 1);
+    }
   }
 
   eraseCard() {
     for (const card of this.enemyPlayer.activeCards) {
-      if (card.lives < 0) this.enemyPlayer.maze.splice(this.enemyPlayer.maze.findIndex((element: Card) => element._id == card._id), 1);
+      if (card.lives <= 0) this.enemyPlayer.maze.splice(this.enemyPlayer.maze.findIndex((element: Card) => element._id == card._id), 1);
     }
 
-    this.enemyPlayer.activeCards.splice(this.activeCardEnemyIndex, 1);
+    this.enemyPlayer.activeCards = this.enemyPlayer.activeCards.filter((card: Card) => {
+      return card.lives > 0;
+    });
   }
 
   eraseMyCard() {
@@ -169,7 +186,9 @@ export class MatchComponent implements OnInit {
       if (card.lives < 0) this.userPlayer.maze.splice(this.userPlayer.maze.findIndex((element: Card) => element._id == card._id), 1);
     }
 
-    this.userPlayer.activeCards.splice(this.activeCardIndex, 1);
+    this.userPlayer.activeCards = this.userPlayer.activeCards.filter((card: Card) => {
+      return card.lives > 0;
+    });
   }
 
   async updateMatch() {
@@ -193,11 +212,13 @@ export class MatchComponent implements OnInit {
       if (this.userPlayer.maze.length == 0 && this.userPlayer.activeCards.length == 0) {
         //game over, you loose
         console.log('game over');
+        this.router.navigate(['/gameover/', this.matchId]);
       }
 
       if (this.enemyPlayer.maze.length == 0 && this.enemyPlayer.activeCards.length == 0) {
         //game over, you win
         console.log('game over');
+        this.router.navigate(['/winover/', this.matchId]);
       }
 
       /**

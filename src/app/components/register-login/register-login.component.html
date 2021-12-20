@@ -14,7 +14,7 @@
                 <span class="input-group-text" id="basic-addon1">Password</span>
                 <input type="password" class="form-control" [(ngModel)]="newUser.password" placeholder="password">
             </div>
-            <div class="input-group mb-3 text-center">
+            <div class="mb-3 text-center">
                 <button class="btn btn-primary text-center" (click)="register()">REGISTER</button>
             </div>
             <div class="text-center text-white">
@@ -22,7 +22,7 @@
             </div>
         </div>
         <div class="offset-3 col-6 " *ngIf="centinel">
-            <h2 class="text-center">LOGIN</h2>
+            <h2 class="text-center text-white">LOGIN</h2>
             <div class="input-group mb-3">
                 <span class="input-group-text" id="basic-addon1">email</span>
                 <input type="text" class="form-control" [(ngModel)]="loginMail" placeholder="email">
@@ -31,7 +31,7 @@
                 <span class="input-group-text" id="basic-addon1">Password</span>
                 <input type="password" class="form-control" [(ngModel)]="loginPass" placeholder="password">
             </div>
-            <div class="input-group text-center ">
+            <div class=" text-center ">
                 <button class="btn btn-primary mb-3 " (click)="login()">LOGIN</button>
             </div>
             <div class="text-center text-white">

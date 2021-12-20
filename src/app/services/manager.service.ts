@@ -40,6 +40,10 @@ export class ManagerService {
     return this.http.get(this.baseURL + '/api/match/' + id).toPromise();
   }
 
+  deleteMatch(matchId: string) {
+    return this.http.delete(this.baseURL + '/api/match/' + matchId).toPromise();
+  }
+
   createUser(user: any) {
     return this.http.post(this.baseURL + '/api/users/register', user).toPromise();
   }

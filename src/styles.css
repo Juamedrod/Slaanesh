@@ -13,7 +13,10 @@
     --creature:rgb(151, 16, 16);
     --character:rgb(4, 47, 189);
     --AttackEvent:rgb(72, 8, 78);
-    --DefenseEvent:  rgb(214, 112, 29);
+    --DefenseEvent:rgb(214, 112, 29);
+    --rare: blue;
+    --legendary: rgb(200, 134, 11);   
+    --artifact: rgb(246, 0, 0) ;
 }
 
 body{

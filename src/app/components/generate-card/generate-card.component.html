@@ -33,7 +33,20 @@
             <option value="Defense Event">Defense Event</option>
         </select>
     </div>
-    <div class="text-center">
+    <div class="input-group mb-3">
+        <span class="input-group-text" id="basic-addon1">Card Rarity</span>
+        <select class="form-select" [(ngModel)]="newCard.rarity">
+            <option value="">Select a Card Rarity</option>
+            <option value="common">Common</option>
+            <option value="rare">Rare</option>
+            <option value="legendary">Legendary</option>
+            <option value="artifact"> Artifact</option>
+        </select>
+    </div>
+    <div class="text-center" *ngIf="!cardId">
         <button class="btn btn-primary w-50 " (click)="onSave()">SAVE</button>
+    </div>
+    <div class="text-center" *ngIf="cardId">
+        <button class="btn btn-primary w-50 " (click)="onEdit()">EDIT</button>
     </div>
 </div>

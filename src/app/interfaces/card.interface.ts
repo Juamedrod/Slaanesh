@@ -7,4 +7,5 @@ export interface Card {
     attack: number;
     lives: number;
     _id?: string;
+    rarity: string;
 }

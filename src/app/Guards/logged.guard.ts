@@ -10,13 +10,12 @@ export class LoggedGuard implements CanActivate {
 
   constructor(private managerService: ManagerService, private router: Router) { }
 
-  canActivate(
-    route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    if (this.managerService.getUser()) {
-      return true;
+  canActivate() {
+    if (this.managerService.getUser().id == '') {
+      this.router.navigate(['/registerlogin']);
+      return false;
     }
-    return this.router.navigate(['/registerlogin']);
+    return true;
   }
 
 }

@@ -1,16 +1,43 @@
-<div class="card"
+<div class="card p-1"
     [ngClass]="{'creature':card.cardType=='creature', 'character': card.cardType=='character', 'AttackEvent': card.cardType=='Attack Event', 'DefenseEvent': card.cardType=='Defense Event'}">
     <img [src]="card.avatar" class="card-img-top">
     <div class="card-body">
         <h5 class="card-title">{{card.cardName}}</h5>
         <p class="card-text text-muted">"{{card.cardQuote}}"</p>
     </div>
-    <div class="d-flex justify-content-between px-2">
+    <div class="d-flex justify-content-between px-2" *ngIf="card.cardType=='creature' || card.cardType=='character'">
         <p class=" ps-3 fs-2 defenseText">{{card.defense}}</p>
-        <p class="hitpointstext">HIT POINTS: {{card.lives}}</p>
+        <p class="text-white hpText fs-4">HEALTH: <span class="fs-4 hpText">{{card.lives}}</span> </p>
         <p class=" pe-3 fs-2 attackText">{{card.attack}}</p>
     </div>
-    <div class="text-center">
-        <span class="text-muted">{{card.cardType}}</span>
+    <div class="row px-2" *ngIf="card.cardType=='Defense Event'">
+        <div class="col-4  fs-2 defenseText text-center  m-0">
+            <p class="fs-6 m-0">DEF</p>
+            <p class="m-0">{{card.defense}}</p>
+        </div>
+        <div class="col-4 fs-2 text-success text-center m-0">
+            <p class="fs-6 m-0">HP</p>
+            <p class="m-0">{{card.lives}}</p>
+        </div>
+        <div class="col-4  fs-2 attackText text-center m-0">
+            <p class="fs-6 m-0">ATK</p>
+            <p class="m-0">{{card.attack}}</p>
+        </div>
+    </div>
+    <div class="row px-2" *ngIf="card.cardType=='Attack Event'">
+        <div class="col-6  fs-2 defenseText text-center  m-0">
+            <p class="fs-6 m-0">DEF</p>
+            <p class="m-0">{{card.defense}}</p>
+        </div>
+        <div class="col-6  fs-2 attackText text-center m-0">
+            <p class="fs-6 m-0">ATK</p>
+            <p class="m-0">{{card.attack}}</p>
+        </div>
+    </div>
+
+    <div class="text-center bg-secondary rounded-1">
+        <span class="text-white">{{card.cardType}}</span><span class="text-white" [ngClass]="{'rare':card.rarity=='rare',
+        'legendary':card.rarity=='legendary','artifact':card.rarity=='artifact'}"> -
+            {{card.rarity}}</span>
     </div>
 </div>

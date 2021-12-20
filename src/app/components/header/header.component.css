@@ -1,6 +1,8 @@
 nav{
-    background-color: var(--color5) !important;
-    border-bottom: 2px solid var(--acento2);    
+    /* background-color: var(--color5) !important; */
+    border-bottom: 2px solid var(--character);
+    background: rgb(88,50,94);
+    background: linear-gradient(90deg,rgba(52,61,70,1)  0%,  rgb(59, 25, 45) 100%);  
 }
 
 .title{

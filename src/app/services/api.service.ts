@@ -25,8 +25,16 @@ export class ApiService {
     return this.http.get<Card[]>(this.baseURL + '/api/card').toPromise();
   }
 
+  getCardById(id: string) {
+    return this.http.get<Card>(this.baseURL + '/api/card/' + id).toPromise();
+  }
+
   newCard(card: Card) {
     this.http.post(this.baseURL + '/api/card', card).toPromise();
+  }
+
+  updateCardById(id: string, card: Card) {
+    this.http.put(this.baseURL + '/api/card/' + id, card).toPromise();
   }
 
   deleteCard(id: string) {

@@ -1,6 +1,7 @@
 <div class="container-fluid p-5">
+    <h1 class="text-white text-center">Build your Maze</h1>
     <div class="d-flex overflow-auto " id="style-13">
-        <div class="col-2 mb-3 me-3" *ngFor="let card of cards; let index=index">
+        <div class="col-2 mb-3 me-3" *ngFor="let card of filteredCards; let index=index">
             <card [card]="card" (click)="toMaze(card, index)"></card>
         </div>
     </div>
@@ -8,7 +9,22 @@
     <hr class="text-white">
     <div class="row">
         <div class="text-center mb-2">
+            <span class="pe-2 text-white">Click to filter the cards by Rarity! ==>></span>
+            <p class="text-white fs-4">
+                <button class="btn  btn-primary artifact" (click)="filterByRarity('artifact')">Artifacts:</button>
+                <span class="error" [ngClass]="{'success': artifacts<1}"> {{artifacts}}/1</span>
+                ----
+                <button class="btn  btn-primary legendary" (click)="filterByRarity('legendary')">Legendaries:</button>
+                <span class="error" [ngClass]="{'success': legendaries<2}"> {{legendaries}}/2</span>
+                ----
+                <button class="btn btn-primary  rare" (click)="filterByRarity('rare')">Rares:</button>
+                <span class="error" [ngClass]="{'success': rares<3}"> {{rares}}/3</span>
+                ----
+                <button class="btn btn-primary  " (click)="filterByRarity('common')">Common:</button>
+                <span class="error" [ngClass]="{'success': rares<3}"> {{common}}/ ∞</span>
+            </p>
             <button class="btn btn-success" (click)="saveMaze()">SAVE MY MAZE</button>
+            <p class="text-center error mt-1 fs-3">{{message}}</p>
         </div>
         <hr class="text-white">
         <hr class="text-white">

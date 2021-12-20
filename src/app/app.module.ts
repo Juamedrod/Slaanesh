@@ -13,6 +13,8 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { WaitingRoomComponent } from './components/waiting-room/waiting-room.component';
 import { RegisterLoginComponent } from './components/register-login/register-login.component';
+import { GameOverComponent } from './components/game-over/game-over.component';
+import { WinOverComponent } from './components/win-over/win-over.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,9 @@ import { RegisterLoginComponent } from './components/register-login/register-log
     HeaderComponent,
     GenerateCardComponent,
     WaitingRoomComponent,
-    RegisterLoginComponent
+    RegisterLoginComponent,
+    GameOverComponent,
+    WinOverComponent
   ],
   imports: [
     BrowserModule,
