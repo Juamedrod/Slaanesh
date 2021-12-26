@@ -39,15 +39,16 @@ export class MazeComponent implements OnInit {
   async saveMaze() {
     try {
       if (this.myMaze.length < 12) {
-        this.message = 'Your maze cant have less than 12 cards';
+        this.message = 'Your deck cant have less than 12 cards';
         return;
       }
       if (this.artifacts > 1 || this.legendaries > 2 || this.rares > 3) {
-        this.message = 'Your maze have too many Unique types, check above to see whats going on';
+        this.message = 'Your deck have too many Unique types, check above to see whats going on';
         return;
       }
       const maze = { userId: this.managerService.getUser(), maze: this.myMaze }
       await this.apiService.newMaze(maze);
+      this.message = 'Your deck has been saved successfully';
       return;
     } catch (error) {
       console.log(error);
