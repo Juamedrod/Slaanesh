@@ -40,10 +40,11 @@ export class WaitingRoomComponent implements OnInit {
 
   async launchGame() {
     try {
+      if (this.userId == this.matchId) return this.matchId = 'We are building IA, but hey, battle with yourself its too much!';
       const response = await this.managerService.createMatch(this.userId, this.matchId);
-
+      return;
     } catch (error) {
-      console.log(error);
+      return console.log(error);
     }
   }
 
